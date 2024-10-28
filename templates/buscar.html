@@ -6,6 +6,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <div class="navbar">
+        <a href="{{ url_for('buscar') }}">Buscar Operario</a>
+        <a href="{{ url_for('agregar') }}">Agregar Operario</a>
+        <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+    </div>
+
     <div class="container">
         <h1>Buscar Operario</h1>
         <form method="post">

@@ -34,24 +34,27 @@ form {
     flex-direction: column;
 }
 
+/* Estilo para inputs y selects */
 input[type="text"],
+input[type="password"],
 select {
     padding: 12px;
-    margin-bottom: 15px;
+    margin-bottom: 15px; /* Espacio entre los campos */
     border-radius: 4px;
     border: 1px solid #ccc;
     font-size: 16px; /* Aumenta el tamaño de la fuente */
 }
 
 input[type="text"]:focus,
+input[type="password"]:focus,
 select:focus {
-    border-color: #007bff; /* Cambia el color del borde al enfocar */
+    border-color: #28b463; /* Cambia el color del borde al enfocar */
     outline: none; /* Elimina el contorno por defecto */
 }
 
 button {
     padding: 12px;
-    background-color: #007bff;
+    background-color: #28b463;
     color: white;
     border: none;
     border-radius: 4px;
@@ -60,7 +63,7 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3; /* Color más oscuro al pasar el mouse */
+    background-color: #229954; /* Color más oscuro al pasar el mouse */
 }
 
 /* Mensajes de error o éxito */
@@ -89,4 +92,34 @@ li {
 }
 .suggestion-item:hover {
    background-color: #f0f0f0; /* Color de fondo al pasar el mouse */
+}
+
+/* Estilos del Navbar */
+/* Estilos del Navbar */
+.navbar {
+    background-color: #28b463; /* Color de fondo del navbar */
+    padding: 10px; /* Espaciado interno */
+    display: flex;
+    justify-content: space-around; /* Espacio entre los enlaces */
+    align-items: center; /* Centrar verticalmente los enlaces */
+    width: 100%; /* Asegurarse de que ocupe todo el ancho */
+    position: fixed; /* Fijar el navbar en la parte superior */
+    top: 0; /* Colocarlo en la parte superior */
+    left: 0; /* Alinear a la izquierda */
+    z-index: 1000; /* Asegurarse de que esté por encima de otros elementos */
+}
+
+.navbar a {
+    color: white; /* Color del texto */
+    text-decoration: none; /* Sin subrayado */
+    font-weight: bold; /* Texto en negrita */
+}
+
+.navbar a:hover {
+    text-decoration: underline; /* Subrayar al pasar el mouse */
+}
+
+/* Ajustar el contenedor principal para que no se superponga con el navbar */
+.container {
+    margin-top: 60px; /* Dejar espacio para el navbar fijo */
 }

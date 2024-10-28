@@ -2,14 +2,38 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Login</h1>
-    <form method="post">
-        <input type="text" name="username" placeholder="Usuario" required>
-        <input type="password" name="password" placeholder="Contraseña" required>
-        <button type="submit">Entrar</button>
-    </form>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="{{ url_for('buscar') }}">Buscar Operario</a>
+        <a href="{{ url_for('agregar') }}">Agregar Operario</a> 
+        <!-- Este enlace puede estar deshabilitado si no estás logueado -->
+        <!-- Puedes usar condiciones de Flask para mostrarlo solo si hay una sesión activa -->
+    </div>
+
+    <!-- Contenedor del formulario de inicio de sesión -->
+    <div class="container">
+        <h1>Iniciar Sesión</h1>
+        <form method="post">
+            <input type="text" name="username" placeholder="Nombre de usuario" required />
+            <input type="password" name="password" placeholder="Contraseña" required />
+            <button type="submit">Entrar</button>
+        </form>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+              <ul>
+              {% for message in messages %}
+                  <li>{{ message }}</li>
+              {% endfor %}
+              </ul>
+          {% endif %}
+        {% endwith %}
+    </div>
+
 </body>
 </html>
