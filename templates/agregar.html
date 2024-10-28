@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   <meta charset="UTF-8">
+   <title>Agregar Operario</title>
+</head>
+<body>
+<h1>Agregar Operario</h1>
+
+<input type="text" id="search-dni" placeholder="Buscar por DNI o Nombre" autocomplete="off">
+<div class="suggestions" id="suggestions"></div>
+
+<form method="post" id="add-form">
+   <input type="hidden" name="dni" id="selected-dni">
+   
+   <label for="mes_certificado">Mes:</label>
+   <select name="mes_certificado" required>
+       <option value="">Seleccionar mes</option>
+       <option value="Enero">Enero</option>
+       <option value="Febrero">Febrero</option>
+       <option value="Marzo">Marzo</option>
+       <option value="Abril">Abril</option>
+       <option value="Mayo">Mayo</option>
+       <option value="Junio">Junio</option>
+       <option value="Julio">Julio</option>
+       <option value="Agosto">Agosto</option>
+       <option value="Septiembre">Septiembre</option>
+       <option value="Octubre">Octubre</option>
+       <option value="Noviembre">Noviembre</option>
+       <option value="Diciembre">Diciembre</option>
+   </select>
+
+   <label for="año_certificado">Año:</label>
+   <select name="año_certificado" required>
+      <option value="">Seleccionar año</option>
+      {% for year in range(2026, 2021, -1) %}
+          <option value="{{ year }}">{{ year }}</option>
+      {% endfor %}
+   </select>
+
+   <button type="submit" id="add-btn" disabled>Agregar Operario del Mes</button>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+// Código JavaScript para manejar la búsqueda y selección de operarios.
+$(document).ready(function() {
+   $('#search-dni').on('input', function() {
+       const query = $(this).val();
+       if (query.length > 0) {
+           $.ajax({
+               url: '/buscar_operarios',
+               method: 'GET',
+               data: { query: query },
+               success: function(data) {
+                   $('#suggestions').empty().show();
+                   data.forEach(function(item) {
+                       $('#suggestions').append('<div class="suggestion-item" data-dni="' + item.DNI + '">' + item.DNI + ' - ' + item.Nombre + ' ' + item.Apellidos + '</div>');
+                   });
+               }
+           });
+       } else {
+           $('#suggestions').hide();
+       }
+   });
+
+   $(document).on('click', '.suggestion-item', function() {
+       const dni = $(this).data('dni');
+       $('#selected-dni').val(dni);
+       $('#search-dni').val($(this).text());
+       $('#suggestions').hide();
+       
+       // Habilitar el botón "Agregar Operario del Mes"
+       $('#add-btn').prop('disabled', false);
+   });
+});
+</script>
+
+<style>
+.suggestions {
+   border: 1px solid #ccc;
+   max-height: 150px;
+   overflow-y: auto;
+   display: none;
+   position: absolute;
+   z-index: 1000;
+   background-color: white;
+}
+.suggestion-item {
+   padding: 8px;
+   cursor: pointer;
+}
+.suggestion-item:hover {
+   background-color: #f0f0f0;
+}
+</style>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul>
+{% for message in messages %}
+<li>{{ message }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+</body>
+</html>

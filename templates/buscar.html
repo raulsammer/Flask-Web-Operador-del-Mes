@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar Operario</title>
+</head>
+<body>
+    <h1>Buscar Operario</h1>
+    <form method="post">
+        <input type="text" name="dni" placeholder="Ingrese su DNI" required>
+        <button type="submit">Buscar</button>
+    </form>
+
+    {% if operario %}
+        <h2>Datos del Operario</h2>
+        <p>DNI: {{ operario['DNI'] }}</p>
+        <p>Nombre: {{ operario['Nombre'] }}</p>
+        <p>Apellido: {{ operario['Apellidos'] }}</p>
+        <p>ID Certificado: {{ operario['id_certificado'] }}</p>
+        <p>Mes Certificado: {{ operario['mes_certificado'] }}</p>
+        <p>Año: {{ operario['Año'] }}</p>
+        <p>Certificado: <a href="{{ operario['certificado'] }}" target="_blank">Ver Certificado</a></p>
+    {% endif %}
+    
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          <ul>
+          {% for message in messages %}
+              <li>{{ message }}</li>
+          {% endfor %}
+          </ul>
+      {% endif %}
+    {% endwith %}
+</body>
+</html>
