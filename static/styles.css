@@ -1,0 +1,92 @@
+/* styles.css */
+
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Contenedor principal */
+.container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    width: 90%;
+    max-width: 400px;
+}
+
+/* Títulos */
+h1, h2 {
+    text-align: center;
+    color: #333;
+}
+
+/* Formulario */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"],
+select {
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 16px; /* Aumenta el tamaño de la fuente */
+}
+
+input[type="text"]:focus,
+select:focus {
+    border-color: #007bff; /* Cambia el color del borde al enfocar */
+    outline: none; /* Elimina el contorno por defecto */
+}
+
+button {
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px; /* Aumenta el tamaño de la fuente */
+}
+
+button:hover {
+    background-color: #0056b3; /* Color más oscuro al pasar el mouse */
+}
+
+/* Mensajes de error o éxito */
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    color: red; /* Cambia el color según sea necesario */
+}
+
+/* Estilos para las sugerencias */
+.suggestions {
+   border: 1px solid #ccc;
+   max-height: 150px;
+   overflow-y: auto;
+   display: none; /* Ocultar inicialmente */
+   position: absolute; /* Para que aparezca sobre otros elementos */
+   z-index: 1000; /* Asegurarse de que esté por encima */
+   background-color: white; /* Fondo blanco para las sugerencias */
+}
+.suggestion-item {
+   padding: 10px; /* Espaciado interno */
+   cursor: pointer; /* Cambia el cursor al pasar el mouse */
+}
+.suggestion-item:hover {
+   background-color: #f0f0f0; /* Color de fondo al pasar el mouse */
+}

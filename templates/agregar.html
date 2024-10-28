@@ -3,8 +3,10 @@
 <head>
    <meta charset="UTF-8">
    <title>Agregar Operario</title>
+   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+<div class="container">
 <h1>Agregar Operario</h1>
 
 <input type="text" id="search-dni" placeholder="Buscar por DNI o Nombre" autocomplete="off">
@@ -12,22 +14,13 @@
 
 <form method="post" id="add-form">
    <input type="hidden" name="dni" id="selected-dni">
-   
+
    <label for="mes_certificado">Mes:</label>
    <select name="mes_certificado" required>
        <option value="">Seleccionar mes</option>
-       <option value="Enero">Enero</option>
-       <option value="Febrero">Febrero</option>
-       <option value="Marzo">Marzo</option>
-       <option value="Abril">Abril</option>
-       <option value="Mayo">Mayo</option>
-       <option value="Junio">Junio</option>
-       <option value="Julio">Julio</option>
-       <option value="Agosto">Agosto</option>
-       <option value="Septiembre">Septiembre</option>
-       <option value="Octubre">Octubre</option>
-       <option value="Noviembre">Noviembre</option>
-       <option value="Diciembre">Diciembre</option>
+       {% for month in ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"] %}
+           <option value="{{ month }}">{{ month }}</option>
+       {% endfor %}
    </select>
 
    <label for="año_certificado">Año:</label>
@@ -81,17 +74,17 @@ $(document).ready(function() {
    border: 1px solid #ccc;
    max-height: 150px;
    overflow-y: auto;
-   display: none;
-   position: absolute;
-   z-index: 1000;
-   background-color: white;
+   display: none; /* Ocultar inicialmente */
+   position: absolute; /* Para que aparezca sobre otros elementos */
+   z-index: 1000; /* Asegurarse de que esté por encima */
+   background-color: white; /* Fondo blanco para las sugerencias */
 }
 .suggestion-item {
-   padding: 8px;
-   cursor: pointer;
+   padding: 10px; /* Espaciado interno */
+   cursor: pointer; /* Cambia el cursor al pasar el mouse */
 }
 .suggestion-item:hover {
-   background-color: #f0f0f0;
+   background-color: #f0f0f0; /* Color de fondo al pasar el mouse */
 }
 </style>
 
@@ -105,5 +98,6 @@ $(document).ready(function() {
 {% endif %}
 {% endwith %}
 
+</div> <!-- Cierre del contenedor -->
 </body>
 </html>

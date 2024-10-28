@@ -6,6 +6,7 @@ import os
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from PyPDF2 import PdfReader, PdfWriter
+from flask import send_from_directory
 
 app = Flask(__name__)
 app.secret_key = 'tu_clave_secreta'
@@ -46,6 +47,20 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
+@app.route('/ver_certificado/<dni>')
+@login_required
+def ver_certificado(dni):
+    # Ruta del certificado
+    pdf_path = os.path.join('certificados', f"{dni}_certificate.pdf")
+    return send_from_directory(directory='certificados', path=f"{dni}_certificate.pdf")
+
+@app.route('/descargar_certificado/<dni>')
+@login_required
+def descargar_certificado(dni):
+    # Ruta del certificado
+    pdf_path = os.path.join('certificados', f"{dni}_certificate.pdf")
+    return send_from_directory(directory='certificados', path=f"{dni}_certificate.pdf", as_attachment=True)
+
 @app.route('/buscar', methods=['GET', 'POST'])
 @login_required
 def buscar():
@@ -53,14 +68,12 @@ def buscar():
         dni = request.form['dni'].strip()  # Elimina espacios en blanco
         df = pd.read_csv('reg_ope_mes.csv')  # Lee el archivo CSV
 
-        # Imprimir los datos para depuración (opcional)
-        print("Datos en la hoja reg_ope_mes.csv:")
-        print(df)
-
         # Búsqueda del operario por DNI
         operario = df[df['DNI'].astype(str).str.strip().str.lower() == dni.lower()]
         if not operario.empty:
-            return render_template('buscar.html', operario=operario.to_dict(orient='records')[0])
+            # Convertimos a dict y añadimos la URL del certificado
+            operario_info = operario.to_dict(orient='records')[0]
+            return render_template('buscar.html', operario=operario_info)
         else:
             flash('DNI no encontrado en la hoja reg_ope_mes.csv')
     return render_template('buscar.html')
